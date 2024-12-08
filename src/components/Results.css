@@ -1,0 +1,19 @@
+#result {
+  max-width: 50rem;
+  margin: 1rem auto;
+  padding: .5rem;
+  table-layout: fixed;
+  border-spacing: 1rem;
+  text-align: right;
+}
+
+#result thead {
+  font-size: 0.8rem;
+  color: #fbb636;
+}
+
+#result tbody {
+  font-family: 'Outfit', sans-serif;
+  font-size: .9rem;
+  color: #ffffff;
+}
