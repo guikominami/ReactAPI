@@ -1,26 +1,34 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import "../components/Results.css";
-
 //https://www.bacancytechnology.com/qanda/react/react-table-sort
 
-export default function Results({ dataFighters }) {
-  const [sortedList, setSortedList] = useState([dataFighters]);
+export default function Results() {
+  const [listFighters, setListFighters] = useState([]);
 
-  console.log(dataFighters);
+  function getListFightersAPI() {
+    axios.get("https://api.octagon-api.com/fighters").then((res) => {
+      setListFighters(Object.values(res.data));
+    });
+  }
 
-  function handleSortList() {
-    const sorted = [...dataFighters].sort(
-      (a, b) => b["name"] - a["name"]
-    );
-    setSortedList(sorted);
-    //console.log(sorted);
+  useEffect(() => {
+    getListFightersAPI();
+  }, []);
+
+  function ascendingEvent() {
+    const data = [...listFighters];
+    if (data.length > 0) {
+      let result = data.sort((a, b) => a.name.localeCompare(b.name));
+      setListFighters(result);
+    }
   }
 
   return (
     <table id="result">
       <thead>
         <tr>
-          <th scope="col" onClick={handleSortList}>
+          <th scope="col" onClick={ascendingEvent}>
             Name
           </th>
           <th scope="col">Category</th>
@@ -31,7 +39,7 @@ export default function Results({ dataFighters }) {
         </tr>
       </thead>
       <tbody>
-        {dataFighters.map((fighter) => (
+        {listFighters.map((fighter) => (
           <tr key={fighter.name}>
             <td>{fighter.name}</td>
             <td>{fighter.category}</td>
