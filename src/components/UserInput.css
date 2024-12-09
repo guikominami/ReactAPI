@@ -1,0 +1,31 @@
+#user-input {
+  max-width: 30rem;
+  margin: 1rem auto;
+  border-radius: 4px;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-evenly;
+  gap: .5rem;
+}
+
+#user-input label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+#user-input input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #000000;
+  border-radius: 0.25rem;
+  background-color: transparent;
+  color: #000000;
+  font-size: 1rem;
+}
