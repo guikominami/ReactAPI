@@ -7,6 +7,8 @@ import "../components/Results.css";
 export default function Results() {
   const [listFighters, setListFighters] = useState([]);
   const [nameAscending, setNameAscending] = useState(true);
+  const [winsAscending, setWinsAscending] = useState(false);
+  const [lossesAscending, setLossesAscending] = useState(false);
 
   function getListFightersAPI() {
     axios.get("https://api.octagon-api.com/fighters").then((res) => {
@@ -48,7 +50,10 @@ export default function Results() {
     let sortResult = data.sort(
       (a, b) => a[sortDataField] - b[sortDataField]
     );
-    if (nameAscending) {
+    if (
+      (winsAscending && sortDataField === "wins") ||
+      (lossesAscending && sortDataField === "losses")
+    ) {
       sortResult = data.sort(
         (a, b) => b[sortDataField] - a[sortDataField]
       );
@@ -57,7 +62,11 @@ export default function Results() {
     if (data.length > 0) {
       setListFighters(sortResult);
       //não pode alterar o valor direto do resultado anterior
-      setNameAscending((editing) => !editing);
+      if (sortDataField === "wins") {
+        setWinsAscending((editing) => !editing);
+      } else if (sortDataField === "losses") {
+        setLossesAscending((editing) => !editing);
+      }
     }
   }
 
@@ -78,14 +87,14 @@ export default function Results() {
           <th scope="col" onClick={() => sortListInteger("wins")}>
             Wins
             <img
-              src={nameAscending ? iconAscending : iconDescending}
+              src={winsAscending ? iconAscending : iconDescending}
               alt=""
             />
           </th>
           <th scope="col" onClick={() => sortListInteger("losses")}>
             Losses
             <img
-              src={nameAscending ? iconAscending : iconDescending}
+              src={lossesAscending ? iconAscending : iconDescending}
               alt=""
             />
           </th>
